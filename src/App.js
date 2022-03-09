@@ -1,9 +1,10 @@
 import Placeholder from './components/Placeholder';
+import Login from './components/Login';
 import './App.css';
 function App() {
   return (
 
-    <Placeholder></Placeholder>
+    <Login/>
   );
 }
 
