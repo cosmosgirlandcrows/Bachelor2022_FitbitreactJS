@@ -1,8 +1,12 @@
 import Button from './components/Button';
 import { useState, useEffect } from 'react';
 import './App.css';
+<<<<<<< HEAD
 import DataElement from './components/DataElement';
 import ele1Icon from "./mu12-3.png";
+=======
+import Grid from './components/Grid'
+>>>>>>> CSS-Grid
 
 function App() {
   const url = window.location.href;
@@ -92,6 +96,7 @@ function App() {
   }
 
   return (
+<<<<<<< HEAD
     <>
       <Button onClick={logout} title="Logout"/>
       <h1>Profile : { fullname }</h1>
@@ -110,6 +115,14 @@ function App() {
         />
     </>
     
+=======
+    <div className="App">
+      <header>
+        <h1>Fitbit API</h1>
+      </header>
+      <Grid/>
+    </div>
+>>>>>>> CSS-Grid
   );
 }
 
