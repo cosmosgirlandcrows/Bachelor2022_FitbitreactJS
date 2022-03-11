@@ -1,9 +1,8 @@
 import Button from './components/Button';
 import { useState, useEffect } from 'react';
 import './App.css';
-import dataElement from './components/DataElement';
-import {FaBeer} from 'react-icons/fa';
 import DataElement from './components/DataElement';
+import ele1Icon from "./mu12-3.png";
 
 function App() {
   const url = window.location.href;
@@ -12,13 +11,16 @@ function App() {
   const [fullname, setFullname] = useState(null);
   const [device, setDevice] = useState(null);
   const [batteryLevel, setBatteryLevel] = useState(null);
-  const element1Icon = "<h2> <FaBeer></FaBeer> </h2>";
+
+  //NOTE! For an image to work it must first be defined in Imports, then referenced as the import-name. Directly tagging the image will not work in React
+  const element1Icon = ele1Icon;
   const [weight, getWeight] = useState(null);
 
   if (access_token == "") {
      window.location.href = "https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=23899M&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2F&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800";
   }
 
+  //IMPORTANT: No fetch function will work if the function the fetch-request is under isn't called here
   useEffect(() => {
     fetchProfile()
     fetchDevice()
@@ -42,6 +44,8 @@ function App() {
     });
   }
 
+  
+  //The basis for our fetch-requests, credit to Nojus. 
   function fetchProfile() {
     fetch( 'https://api.fitbit.com/1/user/' + userId + '/profile.json', {
       headers: {

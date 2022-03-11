@@ -13,6 +13,8 @@ const DataElement = ({icon, className, compTitle, textBodyMan, fetchData, fetchD
         <h3>{fetchData}</h3>
 
         {/* Needs some imported component for data representation here, just treating it as a text object for now */}   
+
+        <h3>{fetchDataChart}</h3>
             
             </div>
     )
