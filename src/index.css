@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
 
 * {
   box-sizing: border-box;
@@ -7,7 +7,7 @@
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   background-color: #f5f5fd;
 }
 
@@ -33,12 +33,10 @@ header {
 }
 
 header h1 {
-
 }
 
 .container > * {
   /* grid-column: span 3; */
-  
 }
 
 .gridItem {
@@ -61,5 +59,4 @@ header h1 {
 
 .gridItemContent {
   flex-grow: 1;
-  
 }
