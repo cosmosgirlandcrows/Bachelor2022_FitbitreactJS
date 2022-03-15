@@ -2,7 +2,8 @@ import Button from "./components/Button";
 import { useState, useEffect } from "react";
 import "./App.css";
 import DataElement from "./components/DataElement";
-import ele1Icon from "./mu12-3.png";
+import ele1Icon from "./sleepIcon.png";
+import e2Icon from "./";
 import Grid from "./components/Grid";
 
 function App() {
@@ -15,7 +16,8 @@ function App() {
   const [heartRate, setHeartRate] = useState(null);
 
   //NOTE! For an image to work it must first be defined in Imports, then referenced as the import-name. Directly tagging the image will not work in React
-  const element1Icon = ele1Icon;
+  const element1_Icon = ele1Icon;
+  
   const [weight, getWeight] = useState(null);
 
   if (access_token == "") {
@@ -116,15 +118,11 @@ function App() {
       <h1>Profile : {fullname}</h1>
       <h2>Device : {device}</h2>
       <h2>Battery : {batteryLevel}</h2>
-      <Grid heartRate={heartRate} />
-
-      <DataElement
-        icon={element1Icon}
-        className={"dataElement"}
-        compTitle={"Test Element 1"}
-        textBodyMan={"Lorem ipsum dipsum jupp jupp"}
-        fetchData={weight}
-      />
+      
+      <Grid 
+        element1_Icon ={element1_Icon} 
+        heartRate={heartRate} 
+        ele  />
     </>
   );
 }

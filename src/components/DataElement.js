@@ -5,10 +5,12 @@ const DataElement = ({icon, className, compTitle, textBodyMan, fetchData, fetchD
     return (
 
         <div className={className}>
-            
-        <img src={icon}/>
 
-        <h3>{compTitle}</h3>
+        <div class="imgh3Div">    
+            <img src={icon} style={{height: 40, width:40}}/>
+
+            <h3>{compTitle}</h3>
+        </div>
         <p>{textBodyMan}</p>
         <h3>{fetchData}</h3>
 
