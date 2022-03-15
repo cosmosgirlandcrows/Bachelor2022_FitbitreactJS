@@ -113,18 +113,10 @@ function App() {
   return (
     <>
       <Button onClick={logout} title="Logout" />
-      <h1>Profile : {fullname}</h1>
+      {/* <h1>Profile : {fullname}</h1>
       <h2>Device : {device}</h2>
-      <h2>Battery : {batteryLevel}</h2>
+      <h2>Battery : {batteryLevel}</h2> */}
       <Grid heartRate={heartRate} />
-
-      <DataElement
-        icon={element1Icon}
-        className={"dataElement"}
-        compTitle={"Test Element 1"}
-        textBodyMan={"Lorem ipsum dipsum jupp jupp"}
-        fetchData={weight}
-      />
     </>
   );
 }
