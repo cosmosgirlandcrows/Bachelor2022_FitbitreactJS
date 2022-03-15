@@ -1,9 +1,9 @@
-import Button from './components/Button';
-import { useState, useEffect } from 'react';
-import './App.css';
-import DataElement from './components/DataElement';
+import Button from "./components/Button";
+import { useState, useEffect } from "react";
+import "./App.css";
+import DataElement from "./components/DataElement";
 import ele1Icon from "./mu12-3.png";
-import Grid from './components/Grid'
+import Grid from "./components/Grid";
 
 function App() {
   const url = window.location.href;
@@ -18,16 +18,16 @@ function App() {
   const [weight, getWeight] = useState(null);
 
   if (access_token == "") {
-     window.location.href = "https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=23899M&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2F&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800";
+    window.location.href =
+      "https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=23899M&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2F&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800";
   }
 
   //IMPORTANT: No fetch function will work if the function the fetch-request is under isn't called here
   useEffect(() => {
-    fetchProfile()
-    fetchDevice()
-    fetchWeightTest()
-  }, []) 
-  
+    fetchProfile();
+    fetchDevice();
+    fetchWeightTest();
+  }, []);
 
   function logout() {
     const params = "token=" + access_token;
@@ -35,70 +35,67 @@ function App() {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
-        "Authorization": "Basic MjM4OTlNOmEwNmY1N2ZkY2RiMjgzMDc4ZDNjODBhNGY4YTE0NTVj"
+        Authorization:
+          "Basic MjM4OTlNOmEwNmY1N2ZkY2RiMjgzMDc4ZDNjODBhNGY4YTE0NTVj",
       },
-      body: params
+      body: params,
     })
-    .then( response => response.json())
-    .then( response => {
-      window.location.href = "http://localhost:3000/"
-    });
+      .then((response) => response.json())
+      .then((response) => {
+        window.location.href = "http://localhost:3000/";
+      });
   }
 
-  
-  //The basis for our fetch-requests, credit to Nojus. 
+  //The basis for our fetch-requests, credit to Nojus.
   function fetchProfile() {
-    fetch( 'https://api.fitbit.com/1/user/' + userId + '/profile.json', {
+    fetch("https://api.fitbit.com/1/user/" + userId + "/profile.json", {
       headers: {
-        "authorization": "Bearer "+access_token,
-        "accept": "application/json"
-      }
+        authorization: "Bearer " + access_token,
+        accept: "application/json",
+      },
     })
-    .then( response => response.json() )
-    .then( response => {
-      setFullname(response.user.fullName);
-        
-        console.log(response.user.fullName)
-    } );
+      .then((response) => response.json())
+      .then((response) => {
+        setFullname(response.user.fullName);
+
+        console.log(response.user.fullName);
+      });
   }
 
   function fetchDevice() {
-    fetch( 'https://api.fitbit.com/1/user/' + userId + '/devices.json', {
+    fetch("https://api.fitbit.com/1/user/" + userId + "/devices.json", {
       headers: {
-        "authorization": "Bearer "+access_token,
-        "accept": "application/json"
-      }
+        authorization: "Bearer " + access_token,
+        accept: "application/json",
+      },
     })
-    .then( response => response.json() )
-    .then( response => {
-      setDevice(response[0].deviceVersion);
-      setBatteryLevel(response[0].batteryLevel+"%");
-    } );
+      .then((response) => response.json())
+      .then((response) => {
+        setDevice(response[0].deviceVersion);
+        setBatteryLevel(response[0].batteryLevel + "%");
+      });
   }
 
-  function fetchWeightTest(){
-
-    fetch('https://api.fitbit.com/1/user/' + userId + "/profile.json", {
+  function fetchWeightTest() {
+    fetch("https://api.fitbit.com/1/user/" + userId + "/profile.json", {
       headers: {
-        "authorization": "Bearer "+ access_token,
-        "accept": "application/json"
-      }
+        authorization: "Bearer " + access_token,
+        accept: "application/json",
+      },
     })
-    .then( response => response.json() )
-    .then( response => {
-      getWeight(response.user.weight);
-
-    });
-
+      .then((response) => response.json())
+      .then((response) => {
+        getWeight(response.user.weight);
+      });
   }
 
   return (
     <>
-      <Button onClick={logout} title="Logout"/>
-      <h1>Profile : { fullname }</h1>
-      <h2>Device : { device }</h2>
-      <h2>Battery : { batteryLevel }</h2>
-
+      <Button onClick={logout} title="Logout" />
+      <h1>Profile : {fullname}</h1>
+      <h2>Device : {device}</h2>
+      <h2>Battery : {batteryLevel}</h2>
+      <Grid />
 
       <DataElement
         icon={element1Icon}
@@ -106,24 +103,21 @@ function App() {
         compTitle={"Test Element 1"}
         textBodyMan={"Lorem ipsum dipsum jupp jupp"}
         fetchData={weight}
-
-
-        />
+      />
     </>
-    
   );
 }
 
 function getAccessToken(url) {
-  if (url.match("#access_token=")) return url.split("#")[1].split("=")[1].split("&")[0];
+  if (url.match("#access_token="))
+    return url.split("#")[1].split("=")[1].split("&")[0];
   return "";
 }
 
 function getUserId(url) {
-  if (url.match("user_id=")) return url.split("#")[1].split("=")[2].split("&")[0]; 
+  if (url.match("user_id="))
+    return url.split("#")[1].split("=")[2].split("&")[0];
   return "";
 }
-
-
 
 export default App;
