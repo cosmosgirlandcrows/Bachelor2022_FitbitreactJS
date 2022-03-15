@@ -40,6 +40,15 @@ header h1 {
 .dataElement{
   display: inline;
 }
+
+.imgh3Div{
+  display: flex;
+  align-items: flex-end;
+}
+
+.imgh3Div h3{
+  font-size: 1.6em;
+}
 .grid-container > * {
   display: grid;
   
