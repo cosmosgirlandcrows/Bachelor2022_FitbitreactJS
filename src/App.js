@@ -12,6 +12,7 @@ function App() {
   const [fullname, setFullname] = useState(null);
   const [device, setDevice] = useState(null);
   const [batteryLevel, setBatteryLevel] = useState(null);
+  const [heartRate, setHeartRate] = useState(null);
 
   //NOTE! For an image to work it must first be defined in Imports, then referenced as the import-name. Directly tagging the image will not work in React
   const element1Icon = ele1Icon;
@@ -27,6 +28,7 @@ function App() {
     fetchProfile();
     fetchDevice();
     fetchWeightTest();
+    fetchHeartRateByDate();
   }, []);
 
   function logout() {
@@ -62,6 +64,24 @@ function App() {
       });
   }
 
+  function fetchHeartRateByDate() {
+    fetch(
+      "https://api.fitbit.com/1/user/" +
+        userId +
+        "/activities/heart/date/today/1d.json",
+      {
+        headers: {
+          authorization: "Bearer " + access_token,
+          accept: "application/json",
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        setHeartRate(response["activities-heart"][0].value.restingHeartRate);
+      });
+  }
+
   function fetchDevice() {
     fetch("https://api.fitbit.com/1/user/" + userId + "/devices.json", {
       headers: {
@@ -71,6 +91,7 @@ function App() {
     })
       .then((response) => response.json())
       .then((response) => {
+        console.log(response);
         setDevice(response[0].deviceVersion);
         setBatteryLevel(response[0].batteryLevel + "%");
       });
@@ -95,7 +116,7 @@ function App() {
       <h1>Profile : {fullname}</h1>
       <h2>Device : {device}</h2>
       <h2>Battery : {batteryLevel}</h2>
-      <Grid />
+      <Grid heartRate={heartRate} />
 
       <DataElement
         icon={element1Icon}
