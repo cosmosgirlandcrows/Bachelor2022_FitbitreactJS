@@ -1,6 +1,7 @@
 import Button from "./components/Button";
 import { useState, useEffect } from "react";
 import "./App.css";
+import useFetch from "./hooks/useFetch";
 
 function App() {
   const url = window.location.href;
@@ -9,6 +10,8 @@ function App() {
   const [fullname, setFullname] = useState(null);
   const [device, setDevice] = useState(null);
   const [batteryLevel, setBatteryLevel] = useState(null);
+  const { data: profile, get: getProfile } = useFetch(access_token);
+  const { data: deviceInfo, get: getDeviceInfo } = useFetch(access_token);
 
   if (access_token == "") {
     window.location.href =
@@ -17,8 +20,8 @@ function App() {
 
   //Fetch data here
   useEffect(() => {
-    fetchProfile();
-    fetchDevice();
+    getProfile("https://api.fitbit.com/1/user/" + userId + "/profile.json");
+    getDeviceInfo("https://api.fitbit.com/1/user/" + userId + "/devices.json");
   }, []);
 
   function logout() {
@@ -35,20 +38,6 @@ function App() {
       .then((response) => response.json())
       .then((response) => {
         window.location.href = "http://localhost:3000/";
-      });
-  }
-
-  //GET call to fetch profile
-  function fetchProfile() {
-    fetch("https://api.fitbit.com/1/user/" + userId + "/profile.json", {
-      headers: {
-        authorization: "Bearer " + access_token,
-        accept: "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        setFullname(response.user.fullName);
       });
   }
 
@@ -70,9 +59,13 @@ function App() {
   return (
     <>
       <Button onClick={logout} title="Logout" />
-      <h1>Profile : {fullname}</h1>
-      <h2>Device : {device}</h2>
-      <h2>Battery : {batteryLevel}</h2>
+      {profile && <h1>Profile : {profile.user.fullName}</h1>}
+      {deviceInfo && (
+        <>
+          <h2>Device : {deviceInfo[0].deviceVersion}</h2>
+          <h2>Battery : {deviceInfo[0].batteryLevel + "%"}</h2>
+        </>
+      )}
     </>
   );
 }
