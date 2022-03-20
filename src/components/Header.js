@@ -1,37 +1,41 @@
 import React, { useEffect } from "react";
-import useFetch from "../hooks/useFetch";
-import Button from "./Button";
 import { useContext } from "react";
 import { AuthenticationContext } from "../contexts/AuthenticationContext";
-import { BsSmartwatch } from "react-icons/bs";
+import Profile from "./Profile";
+import Button from "./Button";
 
 const Header = () => {
-  const { access_token, userId } = useContext(AuthenticationContext);
-  const { logout } = useFetch(access_token);
-  const { data: profile, get: getProfile } = useFetch(access_token);
-  const { data: deviceInfo, get: getDeviceInfo } = useFetch(access_token);
+  //Values from AuthenticationContext
+  const { access_token, userId, BASE_URL } = useContext(AuthenticationContext);
+  const apiProfile = `${BASE_URL}${userId}/profile.json`;
+  const apiDeviceInfo = `${BASE_URL}${userId}/devices.json`;
 
-  useEffect(() => {
-    getProfile("https://api.fitbit.com/1/user/" + userId + "/profile.json");
-    getDeviceInfo("https://api.fitbit.com/1/user/" + userId + "/devices.json");
-  }, []);
+  const logout = () => {
+    const params = "token=" + access_token;
+    fetch("https://api.fitbit.com/oauth2/revoke", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization:
+          "Basic MjM4OTlNOmEwNmY1N2ZkY2RiMjgzMDc4ZDNjODBhNGY4YTE0NTVj",
+      },
+      body: params,
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        window.location.href = "http://localhost:3000/";
+      });
+  };
 
   return (
     <header className="mainHeader">
       <h1>Fitbit API</h1>
       <div className="profile">
-        {profile && <img src={profile.user.avatar} alt="avatar" />}
-        <div>
-          {profile && <h2>{profile.user.fullName}</h2>}
-          {deviceInfo && (
-            <div className="deviceInfo">
-              <h3>
-                <BsSmartwatch />
-                Fitbit {deviceInfo[0].deviceVersion}
-              </h3>
-            </div>
-          )}
-        </div>
+        <Profile
+          access_token={access_token}
+          apiProfile={apiProfile}
+          apiDeviceInfo={apiDeviceInfo}
+        />
         <Button onClick={() => logout()} title="Logout" />
       </div>
     </header>
