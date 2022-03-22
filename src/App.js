@@ -1,10 +1,5 @@
-import Button from "./components/Button";
-import { useState, useEffect } from "react";
 import "./App.css";
-import DataElement from "./components/DataElement";
-import ele1Icon from "./mu12-3.png";
 import Grid from "./components/Grid";
-import useFetch from "./hooks/useFetch";
 import Header from "./components/Header";
 import { AuthenticationContext } from "./contexts/AuthenticationContext";
 
@@ -30,6 +25,7 @@ function App() {
         value={{ userId, access_token, BASE_URL }}
       >
         <Header />
+        <Grid />
       </AuthenticationContext.Provider>
     </>
   );
