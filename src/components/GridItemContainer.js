@@ -1,23 +1,20 @@
 import PropTypes from "prop-types";
+import GridItemHeader from "./GridItemHeader";
 
 const GridItemContainer = ({ title, gridColumn, children }) => {
   return (
     <div className="gridItem" style={{ gridColumn: gridColumn }}>
-      <div className="gridItemHeader">
-        <h2>{title}</h2>
-      </div>
+      <GridItemHeader titletext={title} data="65bpm" />
       <div className="gridItemContent">{children}</div>
     </div>
   );
 };
 
 GridItemContainer.defaultProps = {
-  title: "Grid Item",
   gridColumn: "span 3",
 };
 
 GridItemContainer.propTypes = {
-  title: PropTypes.string,
   gridColumn: PropTypes.string,
 };
 
