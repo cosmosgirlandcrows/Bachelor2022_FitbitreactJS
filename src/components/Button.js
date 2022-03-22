@@ -1,19 +1,21 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from "react";
+import PropTypes from "prop-types";
 
-const Button = ({title, onClick}) => {
+const Button = ({ title, onClick }) => {
   return (
-    <button onClick={onClick}>{title}</button>
-  )
-}
+    <button className="btn" onClick={onClick}>
+      {title}
+    </button>
+  );
+};
 
 Button.defaultProps = {
-    title: 'Button',
-}
+  title: "Button",
+};
 
 Button.propTypes = {
-    title: PropTypes.string,
-    onClick: PropTypes.func,
-}
+  title: PropTypes.string,
+  onClick: PropTypes.func,
+};
 
-export default Button
+export default Button;
