@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap");
 
 * {
   box-sizing: border-box;
@@ -69,7 +70,13 @@ body {
 }
 
 .gridItemHeader h1 {
+  display: flex;
   font-size: 1.5rem;
+}
+
+.gridItemHeader h1::after {
+  content: ".";
+  visibility: hidden;
 }
 
 .gridItemHeader h2 {
@@ -80,6 +87,13 @@ body {
 
 .gridItemContent {
   flex-grow: 1;
+}
+
+.dateContainer {
+  flex-grow: 1;
+  display: flex;
+  justify-content: end;
+  align-items: flex-end;
 }
 
 .profile {
@@ -184,4 +198,72 @@ body {
 
 .error {
   color: rgb(202, 39, 39);
+}
+
+.select {
+  cursor: pointer;
+  width: 130px;
+  position: relative;
+}
+
+.selectInput {
+  font-family: "Roboto Mono", monospace;
+  background-color: #f3f3fb;
+  border: none;
+  width: 100%;
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  color: #15111f;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.selectInput::selection {
+  background-color: #f3f3fb;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.dropdown {
+  font-family: "Roboto Mono", monospace;
+  position: absolute;
+  list-style: none;
+  background-color: #f3f3fb;
+  width: 100%;
+  transform: translateY(100%);
+  bottom: -10px;
+  left: 0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.selectInput:focus {
+  outline-color: #15111f;
+}
+
+.selectInput:hover {
+  background-color: #ececf9;
+}
+
+.selectInput:focus ~ .dropdown {
+  box-shadow: -5px 5px 10px 3px rgba(165, 165, 165, 0.1);
+}
+
+.dropdown li {
+  padding: 0.5rem 1rem;
+}
+
+.dropdown li:hover {
+  background-color: #15111f;
+  color: #f3f3fb;
 }
