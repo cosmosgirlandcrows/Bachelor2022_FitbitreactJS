@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import DateSelector from "./DateSelector";
 
 const GridItemHeader = ({ titletext, data, icon, handleUrl }) => {
+  //Generates header title based on text and date selection
   const generateTitleText = (baseText, selectedDate) => {
     if (selectedDate === "1 week") return `${baseText} the last 7 days`;
     if (selectedDate === "1 month") return `${baseText} the last 30 days`;
@@ -11,12 +12,17 @@ const GridItemHeader = ({ titletext, data, icon, handleUrl }) => {
     return baseText;
   };
 
-  const [selectedDate, setSelectedState] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
   const [fullTitle, setFullTitle] = useState(null);
-  const handleOnChange = (selected) => setSelectedState(selected);
 
+  //gets called when date period is changed in DateSelector component
+  const handleOnChange = (selected) => setSelectedDate(selected);
+
+  //gets called when component is finished rendering, and gets recalled if selectedDate changes state
   useEffect(() => {
     setFullTitle(() => generateTitleText(titletext, selectedDate));
+
+    //this function gets passed as a prop from GridItemContainer
     handleUrl(selectedDate);
   }, [selectedDate]);
 

@@ -8,6 +8,7 @@ const DateSelector = ({ values, handleOnChange }) => {
   const [insideDropdown, setInsideDropdown] = useState(false);
 
   useEffect(() => {
+    //this function gets passed as a prop from GridItemHeader
     handleOnChange(selected);
   }, [selected]);
 
