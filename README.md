@@ -3,7 +3,7 @@ This is the right one!
 -- Bachelor project 2022 --
 
 After cloning the project run:<br/>
-npm install react-icons moment react-moment react-chartjs-2 chart.js
+npm install react-icons moment react-moment react-chartjs-2 chart.js</br>
 npm start
 
 Members:
