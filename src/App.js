@@ -1,7 +1,5 @@
-import Button from "./components/Button";
-import { useState, useEffect } from "react";
 import "./App.css";
-import useFetch from "./hooks/useFetch";
+import Grid from "./components/Grid";
 import Header from "./components/Header";
 import { AuthenticationContext } from "./contexts/AuthenticationContext";
 
@@ -27,6 +25,7 @@ function App() {
         value={{ userId, access_token, BASE_URL }}
       >
         <Header />
+        <Grid />
       </AuthenticationContext.Provider>
     </>
   );

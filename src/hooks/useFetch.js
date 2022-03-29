@@ -13,7 +13,7 @@ const useFetch = (
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [apiUrl, seApitUrl] = useState(url);
+  const [apiUrl, setApiUrl] = useState(url);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -28,6 +28,7 @@ const useFetch = (
       })
       .then((response) => {
         setData(response);
+        console.log(response);
       })
       .catch((error) => {
         setError(error);
@@ -39,7 +40,7 @@ const useFetch = (
     };
   }, [apiUrl]);
 
-  return [data, loading, error, seApitUrl];
+  return [data, loading, error, setApiUrl];
 };
 
 export default useFetch;
