@@ -65,8 +65,16 @@ body {
 }
 
 .gridHeaderIcon svg {
-  height: 80%;
+  height: 100%;
   width: auto;
+}
+
+.moonIcon {
+  fill: #2e2d4d;
+}
+
+.heartIcon {
+  fill: #cd5c5c;
 }
 
 .gridItemHeader h1 {

@@ -37,14 +37,14 @@ const Grid = () => {
     <div className="container">
       <GridItemContainer
         title="Average sleep duration"
-        icon={<BsFillMoonStarsFill />}
+        icon={<BsFillMoonStarsFill className="moonIcon" />}
         access_token={access_token}
         url={apiSleep}
         getDataset={getSleepDataset}
       />
       <GridItemContainer
         title="Average heartrate"
-        icon={<FaHeartbeat />}
+        icon={<FaHeartbeat className="heartIcon" />}
         access_token={access_token}
         url={apiHeartrate}
         getDataset={getHeartrateDataset}
