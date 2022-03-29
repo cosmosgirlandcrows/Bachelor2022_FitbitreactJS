@@ -2,11 +2,11 @@ This is the right one!
 
 -- Bachelor project 2022 --
 
-After cloning project run:
-npm install
-npm install react-icons --save
-npm install --save moment react-moment
-npm start
+After cloning the project run:<br/>
+npm install<br/>
+npm install react-icons --save<br/>
+npm install --save moment react-moment<br/>
+npm start<br/>
 
 Members:
 
