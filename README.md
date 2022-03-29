@@ -4,7 +4,7 @@ This is the right one!
 
 Members:
 
-Nojus X. -
+Nojus Budreika - s344224
 Rosa B. - s344236
 Mohamed X. - 
 Hassan X. - 
