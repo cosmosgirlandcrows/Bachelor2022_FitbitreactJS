@@ -52,8 +52,8 @@ body {
 
 .gridItemHeader {
   display: flex;
-  padding: 1rem 1.5rem;
-  border-bottom: 2px solid #9190911f;
+  padding: 2rem 1.5rem 1rem 1.5rem;
+  /* border-bottom: 2px solid #9190911f; */
   color: #15111f;
 }
 
@@ -70,11 +70,15 @@ body {
 }
 
 .moonIcon {
-  fill: #2e2d4d;
+  fill: #3e3c67;
 }
 
 .heartIcon {
   fill: #cd5c5c;
+}
+
+.stepsIcon {
+  fill: #4baa81;
 }
 
 .gridItemHeader h1 {
@@ -95,7 +99,7 @@ body {
 
 .gridItemContent {
   flex-grow: 1;
-  padding: 2rem 1rem;
+  padding: 0.5rem 1rem 2rem 1rem;
 }
 
 .dateContainer {

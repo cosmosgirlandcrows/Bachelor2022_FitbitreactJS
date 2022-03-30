@@ -13,25 +13,42 @@ const Grid = () => {
   //api endpoints
   const apiHeartrate = `${BASE_URL}${userId}/activities/heart/date/`;
   const apiSleep = `${BASE_URL}${userId}/sleep/date/`;
+  const apiSteps = `${BASE_URL}${userId}/activities/steps/date/`;
 
   const [sleepChartLabels, setSleepChartLabels] = useState([]);
-
+  const [sleepChartData, setSleepChartData] = useState([]);
+  const [heartChartLabels, setHeartChartLabels] = useState([]);
+  const [heartChartData, setHeartChartData] = useState([]);
+  const [stepsChartLabels, setStepsChartLabels] = useState([]);
+  const [stepsChartData, setStepsChartData] = useState([]);
 
   const handleSleepLabelChange = (labels) => {
     setSleepChartLabels(labels);
   };
 
-  useEffect(() => {
-    console.log(sleepChartLabels)
-  }, [sleepChartLabels])
+  const handleHeartLabelChange = (labels) => {
+    setHeartChartLabels(labels);
+  };
+
+  const handleStepsLabelChange = (labels) => {
+    setStepsChartLabels(labels);
+  };
 
   //returns values that get used to calculate average value for heartrate
   //This function gets passed as a prop in GridItemContainer
   const getHeartrateDataset = (data) => {
     const array = data["activities-heart"];
+    const chartDataset = array
+      .map((el) => {
+        const restingHeartRate = el.value.restingHeartRate;
+        const date = el.dateTime;
+        return { dateTime: date, restingHeartRate: restingHeartRate };
+      })
+      .filter((el) => !isNaN(el.restingHeartRate));
     const dataset = array
       .map((el) => el.value.restingHeartRate)
       .filter((el) => !isNaN(el));
+    setHeartChartData(chartDataset);
     const roundToDecimal = false;
     return [dataset, "bpm", roundToDecimal];
   };
@@ -40,12 +57,48 @@ const Grid = () => {
   //This function gets passed as a prop in GridItemContainer
   const getSleepDataset = (data) => {
     const array = data["sleep"];
+    const chartDataset = array
+      .map((el) => {
+        const duration = Number((el.duration / (1000 * 60 * 60)).toFixed(1));
+        const date = el.dateOfSleep;
+        return { dateOfSleep: date, duration: duration };
+      })
+      .filter((el) => !isNaN(el.duration));
     const dataset = array
       .map((el) => Number((el.duration / (1000 * 60 * 60)).toFixed(1)))
       .filter((el) => !isNaN(el));
-    const labels = array.map((el) => el.dateOfSleep);
     const roundToDecimal = true;
-    return [dataset, labels, "hours", roundToDecimal];
+    setSleepChartData(chartDataset);
+    return [dataset, "hours", roundToDecimal];
+  };
+
+  const getStepsDataset = (data) => {
+    const array = data["activities-steps"];
+    const dataset = array
+      .map((el) => Number(el.value))
+      .filter((el) => !isNaN(el));
+    const roundToDecimal = false;
+    console.log(array);
+    setStepsChartData(array);
+    return [dataset, "steps", roundToDecimal];
+  };
+
+  const getCompleteChartData = (labels, data, callback) => {
+    const array = [];
+    labels.forEach((label) => {
+      let value = null;
+      data.find((object) => {
+        //
+        value = callback(object, label);
+
+        // if (value === 0) value = null;
+        if (value !== null) return true;
+        return false;
+      });
+      array.push(value);
+    });
+    console.log(array);
+    return array;
   };
 
   return (
@@ -57,27 +110,63 @@ const Grid = () => {
         url={apiSleep}
         getDataset={getSleepDataset}
         handleLabelChange={handleSleepLabelChange}
-        children={<LineChart labels={sleepChartLabels}/>}
+        children={
+          <LineChart
+            labels={sleepChartLabels}
+            chartData={getCompleteChartData(
+              sleepChartLabels,
+              sleepChartData,
+              (o, l) => {
+                if (o.dateOfSleep === l) return o.duration;
+                return null;
+              }
+            )}
+          />
+        }
       />
-      {/* <GridItemContainer
+      <GridItemContainer
         title="Average heartrate"
         icon={<FaHeartbeat className="heartIcon" />}
         access_token={access_token}
         url={apiHeartrate}
-        handleLabelChange={handleSleepChartData}
+        handleLabelChange={handleHeartLabelChange}
         getDataset={getHeartrateDataset}
-        children={<LineChart/>}
-      /> */}
-      {/* <GridItemContainer
+        children={
+          <LineChart
+            labels={heartChartLabels}
+            chartData={getCompleteChartData(
+              heartChartLabels,
+              heartChartData,
+              (o, l) => {
+                if (o.dateTime === l) return o.restingHeartRate;
+                return null;
+              }
+            )}
+          />
+        }
+      />
+      <GridItemContainer
         title="Average step count"
         icon={<IoFootstepsSharp className="stepsIcon" />}
         access_token={access_token}
-        url={apiHeartrate}
-        handleData={handleSleepChartData}
-        getDataset={getHeartrateDataset}
-        children={<LineChart/>}
+        url={apiSteps}
+        handleLabelChange={handleStepsLabelChange}
+        getDataset={getStepsDataset}
+        children={
+          <LineChart
+            labels={stepsChartLabels}
+            chartData={getCompleteChartData(
+              stepsChartLabels,
+              stepsChartData,
+              (o, l) => {
+                if (o.dateTime === l) return Number(o.value);
+                return null;
+              }
+            )}
+          />
+        }
       />
-      <GridItemContainer
+      {/* <GridItemContainer
         title="Average activity level"
         icon={<FaBurn className="burnIcon" />}
         access_token={access_token}
