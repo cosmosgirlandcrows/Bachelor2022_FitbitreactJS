@@ -20,31 +20,19 @@ ChartJS.register(
   Legend
 );
 
-const options = {
-  plugins: {
-    legend: {
-      display: false,
-    },
-  },
-  responsive: true,
-  
-};
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
-const data = {
-  labels,
-  datasets: [
-    {
-      label: 'Dataset 1',
-      data: labels.map(() => "1"),
-      borderColor: 'rgb(255, 99, 132)',
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
-    },
-  ],
-};
-
-const LineChart = () => {
+const LineChart = ({options, labels}) => {
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: 'Dataset 1',
+        data: labels.map(() => "1"),
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      },
+    ],
+  };
 
   return (
     <div>
@@ -52,5 +40,16 @@ const LineChart = () => {
     </div>
   )
 }
+
+LineChart.defaultProps = {
+  options: {
+    plugins: {
+    legend: {
+      display: false,
+    },
+  },
+  responsive: true,
+  },
+};
 
 export default LineChart
