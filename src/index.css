@@ -35,6 +35,7 @@ body {
   max-width: 1920px;
   margin: 2rem auto 0;
   padding: 0 3rem;
+  padding-bottom: 6rem;
 }
 
 .container > * {
@@ -78,7 +79,12 @@ body {
 }
 
 .stepsIcon {
-  fill: #4baa81;
+  fill: #007c77;
+  /* fill: #FF9933; */
+}
+
+.burnIcon {
+  fill: #ecba82;
 }
 
 .gridItemHeader h1 {

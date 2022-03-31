@@ -20,12 +20,12 @@ ChartJS.register(
   Legend
 );
 
-const LineChart = ({ options, labels, chartData }) => {
+const LineChart = ({ options, labeltext, labels, chartData }) => {
   const data = {
     labels,
     datasets: [
       {
-        label: "Hours slept",
+        label: labeltext,
         data: chartData,
         borderColor: "rgb(255, 99, 132)",
         backgroundColor: "rgba(255, 99, 132, 0.5)",

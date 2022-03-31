@@ -90,14 +90,12 @@ const Grid = () => {
       data.find((object) => {
         //
         value = callback(object, label);
-
         // if (value === 0) value = null;
         if (value !== null) return true;
         return false;
       });
       array.push(value);
     });
-    console.log(array);
     return array;
   };
 
@@ -113,6 +111,7 @@ const Grid = () => {
         children={
           <LineChart
             labels={sleepChartLabels}
+            labeltext="Hours slept"
             chartData={getCompleteChartData(
               sleepChartLabels,
               sleepChartData,
@@ -134,6 +133,7 @@ const Grid = () => {
         children={
           <LineChart
             labels={heartChartLabels}
+            labeltext="Beats per minute"
             chartData={getCompleteChartData(
               heartChartLabels,
               heartChartData,
@@ -155,6 +155,7 @@ const Grid = () => {
         children={
           <LineChart
             labels={stepsChartLabels}
+            labeltext="Steps per day"
             chartData={getCompleteChartData(
               stepsChartLabels,
               stepsChartData,

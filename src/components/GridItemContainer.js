@@ -42,7 +42,6 @@ const GridItemContainer = ({
         startDate = moment(startDate).subtract(1, "years").format("yyyy-MM-DD");
         break;
     }
-    console.log(startDate + " - " + endDate);
     return [startDate, endDate];
   };
 
