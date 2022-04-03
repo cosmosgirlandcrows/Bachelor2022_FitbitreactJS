@@ -29,13 +29,13 @@ const Profile = ({ access_token, apiProfile, apiDeviceInfo }) => {
       {profile && <img src={profile.user.avatar} alt="avatar" />}
       <div>
         {profile && <h2>{profile.user.fullName}</h2>}
-        <h3 className="deviceInfo">
+         <h3 className="deviceInfo">
           {device && (
             <>
               <BsSmartwatch /> Fitbit {device[0].deviceVersion}
             </>
           )}
-        </h3>
+        </h3> 
       </div>
     </>
   );
