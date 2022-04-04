@@ -1,6 +1,4 @@
-import React from "react";
 import useFetch from "../hooks/useFetch";
-import PropTypes from "prop-types";
 import Error from "./Error";
 import Loader from "./Loader";
 import { BsSmartwatch } from "react-icons/bs";
@@ -21,6 +19,11 @@ const Profile = ({ access_token, apiProfile, apiDeviceInfo }) => {
       <Error errorCode={profileError} errorText="could not fetch profile" />
     );
 
+  if (deviceError)
+    return (
+      <Error errorCode={deviceError} errorText="could not fetch profile" />
+    );
+
   return (
     <>
       {profileLoading && deviceLoading && (
@@ -29,13 +32,13 @@ const Profile = ({ access_token, apiProfile, apiDeviceInfo }) => {
       {profile && <img src={profile.user.avatar} alt="avatar" />}
       <div>
         {profile && <h2>{profile.user.fullName}</h2>}
-         <h3 className="deviceInfo">
+        {/* <h3 className="deviceInfo">
           {device && (
             <>
               <BsSmartwatch /> Fitbit {device[0].deviceVersion}
             </>
           )}
-        </h3> 
+        </h3> */}
       </div>
     </>
   );

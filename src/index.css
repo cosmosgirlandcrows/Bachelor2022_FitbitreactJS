@@ -67,8 +67,16 @@ body {
 }
 
 .gridHeaderIcon svg {
-  height: 80%;
+  height: 100%;
   width: auto;
+}
+
+.moonIcon {
+  fill: #2e2d4d;
+}
+
+.heartIcon {
+  fill: #cd5c5c;
 }
 
 .gridItemHeader h1 {
@@ -89,6 +97,7 @@ body {
 
 .gridItemContent {
   flex-grow: 1;
+  padding: 2rem 1rem;
 }
 
 .dateContainer {

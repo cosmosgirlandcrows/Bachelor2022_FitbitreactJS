@@ -4,6 +4,7 @@ import GridItemContainer from "./GridItemContainer";
 //import icons here
 import { FaHeartbeat } from "react-icons/fa";
 import { BsFillMoonStarsFill } from "react-icons/bs";
+import LineChart from "./LineChart";
 
 const Grid = () => {
   const { access_token, userId, BASE_URL } = useContext(AuthenticationContext);
@@ -37,14 +38,15 @@ const Grid = () => {
     <div className="container">
       <GridItemContainer
         title="Average sleep duration"
-        icon={<BsFillMoonStarsFill />}
+        icon={<BsFillMoonStarsFill className="moonIcon" />}
         access_token={access_token}
         url={apiSleep}
         getDataset={getSleepDataset}
+        children={<LineChart/>}
       />
       <GridItemContainer
         title="Average heartrate"
-        icon={<FaHeartbeat />}
+        icon={<FaHeartbeat className="heartIcon" />}
         access_token={access_token}
         url={apiHeartrate}
         getDataset={getHeartrateDataset}
