@@ -8,7 +8,7 @@ import {
   Title,
   Tooltip,
   Legend,
-} from 'chart.js';
+} from "chart.js";
 
 ChartJS.register(
   CategoryScale,
@@ -20,37 +20,36 @@ ChartJS.register(
   Legend
 );
 
-const options = {
-  plugins: {
-    legend: {
-      display: false,
-    },
-  },
-  responsive: true,
-  
-};
-
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
-const data = {
-  labels,
-  datasets: [
-    {
-      label: 'Dataset 1',
-      data: labels.map(() => "1"),
-      borderColor: 'rgb(255, 99, 132)',
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
-    },
-  ],
-};
-
-const LineChart = () => {
+const LineChart = ({ options, labeltext, labels, chartData }) => {
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: labeltext,
+        data: chartData,
+        borderColor: "rgb(255, 99, 132)",
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
+        spanGaps: true,
+      },
+    ],
+  };
 
   return (
     <div>
-        <Line data={data} options={options}/>
+      <Line data={data} options={options} />
     </div>
-  )
-}
+  );
+};
 
-export default LineChart
+LineChart.defaultProps = {
+  options: {
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+    responsive: true,
+  },
+};
+
+export default LineChart;
