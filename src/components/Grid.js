@@ -104,7 +104,6 @@ const Grid = () => {
       <GridItemContainer
         title="Average sleep duration"
         icon={<BsFillMoonStarsFill className="moonIcon" />}
-        access_token={access_token}
         url={apiSleep}
         getDataset={getSleepDataset}
         handleLabelChange={handleSleepLabelChange}
@@ -126,7 +125,6 @@ const Grid = () => {
       <GridItemContainer
         title="Average heartrate"
         icon={<FaHeartbeat className="heartIcon" />}
-        access_token={access_token}
         url={apiHeartrate}
         handleLabelChange={handleHeartLabelChange}
         getDataset={getHeartrateDataset}
@@ -148,7 +146,6 @@ const Grid = () => {
       <GridItemContainer
         title="Average step count"
         icon={<IoFootstepsSharp className="stepsIcon" />}
-        access_token={access_token}
         url={apiSteps}
         handleLabelChange={handleStepsLabelChange}
         getDataset={getStepsDataset}

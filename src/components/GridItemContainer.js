@@ -1,21 +1,23 @@
 import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import useFetch from "../hooks/useFetch";
 import GridItemHeader from "./GridItemHeader";
 import moment from "moment";
 import Loader from "./Loader";
 import GridItemContent from "./GridItemContent";
+import { AuthenticationContext } from "../contexts/AuthenticationContext";
 
 const GridItemContainer = ({
   title,
   icon,
   gridColumn,
   children,
-  access_token,
   url,
   getDataset,
   handleLabelChange,
 }) => {
+  const { access_token } = useContext(AuthenticationContext);
+
   //Generates full url with date parameters
   const buildUrl = (url, startDate, endDate) =>
     `${url}${startDate}/${endDate}.json`;
