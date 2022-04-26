@@ -14,7 +14,6 @@ const CaloriesComponent = ({ base_url }) => {
     const dataset = getDataset(data, "activities-calories");
     const value = dataset((array) => {
       return array.reduce((sum, curr) => sum + Number(curr.value), 0);
-      // return array.map((el) => Number(el.value)).filter((el) => !isNaN(el));
     });
     return value === "0" ? "-- kcal" : value + " kcal";
   };
