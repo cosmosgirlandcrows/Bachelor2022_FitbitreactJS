@@ -1,91 +1,105 @@
-import {
-  getAverage,
-  formatDataset,
-  getDataset,
-  composeUrl,
-  generateTitleText,
-} from "../utils/utils";
+import { getAverage, generateTitleText } from "../utils/utils";
 import GridItemHeader from "./GridItemHeader";
 import GridItemContent from "./GridItemContent";
 import Loader from "./Loader";
 import LineChart from "./LineChart";
 import { FaHeartbeat } from "react-icons/fa";
-import Calendar from "react-calendar";
-import { MdKeyboardArrowRight } from "react-icons/md";
-import { MdKeyboardArrowLeft } from "react-icons/md";
-import { useRef, useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import CalendarToggle from "./CalendarToggle";
 import { AuthenticationContext } from "../contexts/AuthenticationContext";
 import moment from "moment";
 import useFetch from "../hooks/useFetch";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 const HeartrateCalendarComponent = ({ base_url }) => {
-  const base_title = "Average heartrate";
-  const value = "-- bpm";
-  const base_icon = <FaHeartbeat className="heartIcon" />;
   const { access_token } = useContext(AuthenticationContext);
-
-  const [avgValue, setAvgValue] = useState(value);
-  const [isToggled, setIsToggled] = useState(true);
-  const [title, setTitle] = useState(base_title);
-
+  //Header state
+  const [avgValue, setAvgValue] = useState("-- bpm");
+  const [title, setTitle] = useState("Average heartrate on");
+  //Chart state
   const [labels, setLabels] = useState([]);
   const [dataset, setDataset] = useState([]);
 
-  //API state
-  const endDate = moment().format("yyyy-MM-DD");
-  const startDate = moment().subtract(1, "years").format("yyyy-MM-DD");
-  const url = `${base_url}${startDate}/${endDate}/1min.json`;
-
-  const [data, loading, error] = useFetch(access_token, url);
-  const [filteredDates, setFilteredDates] = useState(null);
-
+  //State for handling api calls to fetch data
+  //Returns all heart rate data from the past year
+  const [data, loading, , setDatesUrl] = useFetch(access_token, null);
+  //Date parameters for url.
+  const [[, intradayEndDate], setIntradayDateRange] =
+    useLocalStorage("intradayDateRange");
+  //Dates that only contain heart rate data
+  const [filteredDates, setFilteredDates] = useLocalStorage("intradayDates");
+  //State for handling 24h heart rate
   const [intradayData, intradayLoading, , setIntradayUrl] = useFetch(
     access_token,
     null
   );
 
+  //Gets called only on first render
+  useEffect(() => {
+    const endDate = moment().format("yyyy-MM-DD");
+    const startDate = moment(endDate).subtract(1, "years").format("yyyy-MM-DD");
+    let url = `${base_url}${startDate}/${endDate}/1min.json`;
+    if (intradayEndDate && intradayEndDate !== endDate) {
+      //Checks if date from localStorage is different from todays date and refetches only days that have not been cached before
+      let url = `${base_url}${intradayEndDate}/${endDate}/1min.json`;
+      setIntradayDateRange([startDate, endDate]);
+      setDatesUrl(url);
+    }
+    if (intradayEndDate && !filteredDates) {
+      //Makes api call if filtered dates are not found in localStorage
+      setDatesUrl(url);
+    }
+    if (!intradayEndDate) {
+      //Saves url params in localStorage if initially empty and makes api call
+      setIntradayDateRange([startDate, endDate]);
+      setDatesUrl(url);
+    }
+  }, []);
+
+  //Runs when data variable from api call returns a response
   useEffect(() => {
     if (data) {
-      const dates = data["activities-heart"]
+      //Removes dates without heartrate data
+      const filteredDates = data["activities-heart"]
         .filter((e) => e.value?.restingHeartRate)
-        .reduce((acc, curr) => {
-          return { ...acc, [curr.dateTime]: curr.dateTime };
-        }, {});
-      setFilteredDates(dates);
-      console.log(dates);
+        .reduce((a, c) => ({ ...a, [c.dateTime]: c.dateTime }), {});
+      //Combines previous filtered dates with current dates and saves to localStorage
+      //Filtered dates are passed to calendar component to determine which days are clickable
+      setFilteredDates((prev) => ({ ...prev, ...filteredDates }));
     }
   }, [data]);
 
   useEffect(() => {
     if (intradayData) {
+      //Runs when api call returns 24h heart rate info.
       const intraday = intradayData["activities-heart-intraday"].dataset;
-      const values = intraday.map((el) => el.value);
+      const [values, labels] = intraday.reduce(
+        ([v, t], curr) => {
+          return [
+            [...v, curr.value],
+            [...t, curr.time],
+          ];
+        },
+        [[], []]
+      );
+      //Passes data to chart state
       setDataset(values);
-      setLabels(intraday.map((el) => el.time));
-      setAvgValue(getAverage(values) + " bpm");
+      setLabels(labels);
+      //calculates average heartrate for given day
+      const avg = getAverage(values) || "--";
+      setAvgValue(avg + " bpm");
     }
   }, [intradayData]);
 
-  const onCalendarToggle = () => {
-    setIsToggled(!isToggled);
-  };
-
   const onCalandarDateChange = (date) => {
-    const dateFormatter = Intl.DateTimeFormat("sv-SE");
-    const d = dateFormatter.format(date).toString();
-    setTitle(generateTitleText(base_title, d));
-    setIntradayUrl(`${base_url}${d}/1d/1min.json`);
-  };
-
-  const lineChartOptions = {
-    elements: {
-      point: {
-        borderWidth: 0,
-        radius: 0,
-        backgroundColor: "rgba(0,0,0,0)",
-      },
-    },
+    if (intradayEndDate) {
+      const dateFormatter = Intl.DateTimeFormat("sv-SE");
+      const d = dateFormatter.format(date).toString();
+      //Sets header title with selected date from calendar
+      setTitle(generateTitleText("Average heartrate", d));
+      //Makes api call to fetch detailed 24h heart rate data
+      setIntradayUrl(`${base_url}${d}/1d/1min.json`);
+    }
   };
 
   return (
@@ -96,11 +110,10 @@ const HeartrateCalendarComponent = ({ base_url }) => {
           value={
             loading || intradayLoading ? <Loader text="Loading..." /> : avgValue
           }
-          icon={base_icon}
+          icon={<FaHeartbeat className="heartIcon" />}
         >
-          {filteredDates ? (
+          {intradayEndDate && filteredDates ? (
             <CalendarToggle
-              onCalendarToggle={onCalendarToggle}
               onCalandarDateChange={onCalandarDateChange}
               dates={filteredDates}
             />
@@ -118,6 +131,16 @@ const HeartrateCalendarComponent = ({ base_url }) => {
       </div>
     </>
   );
+};
+
+const lineChartOptions = {
+  elements: {
+    point: {
+      borderWidth: 0,
+      radius: 0,
+      backgroundColor: "rgba(0,0,0,0)",
+    },
+  },
 };
 
 export default HeartrateCalendarComponent;

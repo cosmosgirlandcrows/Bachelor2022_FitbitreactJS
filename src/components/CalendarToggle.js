@@ -3,10 +3,9 @@ import { BsCalendarFill } from "react-icons/bs";
 import Calendar from "react-calendar";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { MdKeyboardArrowLeft } from "react-icons/md";
-import moment from "react-moment";
 import OutsideClickHandler from "react-outside-click-handler";
 
-const CalendarToggle = ({ onCalendarToggle, dates, onCalandarDateChange }) => {
+const CalendarToggle = ({ dates, onCalandarDateChange }) => {
   const [isToggled, setIsToggled] = useState(false);
   const [dateValue, setDateValue] = useState(() => {
     const mostRecent = Object.values(dates).slice(-1)[0];
@@ -51,16 +50,16 @@ const CalendarToggle = ({ onCalendarToggle, dates, onCalandarDateChange }) => {
 
   return (
     <div className="calendarContainer">
-      <button
-        onClick={() => setIsToggled(!isToggled)}
-        className="toggleCalendar"
-      >
-        <BsCalendarFill />
-        <p>{isToggled ? "Hide Calendar" : "Show Calendar"}</p>
-      </button>
+      <OutsideClickHandler onOutsideClick={() => setIsToggled(false)}>
+        <button
+          onClick={() => setIsToggled(!isToggled)}
+          className="toggleCalendar"
+        >
+          <BsCalendarFill />
+          <p>{isToggled ? "Hide Calendar" : "Show Calendar"}</p>
+        </button>
 
-      {isToggled && (
-        <OutsideClickHandler onOutsideClick={() => setIsToggled(!isToggled)}>
+        {isToggled && (
           <Calendar
             className="calendar"
             tileClassName={tileClassName}
@@ -79,8 +78,8 @@ const CalendarToggle = ({ onCalendarToggle, dates, onCalandarDateChange }) => {
             }}
             defaultActiveStartDate={dateValue}
           />
-        </OutsideClickHandler>
-      )}
+        )}
+      </OutsideClickHandler>
     </div>
   );
 };

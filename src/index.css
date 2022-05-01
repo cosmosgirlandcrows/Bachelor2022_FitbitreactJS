@@ -390,7 +390,7 @@ body {
   opacity: 1;
   visibility: visible;
   transition: 150ms ease-in-out;
-  transition-delay: 2s;
+  transition-delay: 1.3s;
 }
 
 .tile:hover,
