@@ -28,7 +28,6 @@ const useFetch = (
       })
       .then((response) => {
         setData(response);
-        console.log(response);
       })
       .catch((error) => {
         setError(error);

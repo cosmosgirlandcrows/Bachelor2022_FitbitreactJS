@@ -10,6 +10,7 @@
 body {
   font-family: "Poppins", sans-serif;
   background-color: #f3f3fb;
+  padding-bottom: 10vh;
 }
 
 .mainHeader {
@@ -29,7 +30,7 @@ body {
 .container {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  grid-auto-rows: minmax(300px, auto);
+  grid-auto-rows: 500px;
   grid-gap: 2.5rem;
   justify-content: start;
   align-content: flex-start;
@@ -49,7 +50,7 @@ body {
   display: flex;
   flex-direction: column;
   border-radius: 10px;
-  overflow: hidden;
+  /* overflow: hidden; */
   background-color: white;
   box-shadow: -6px 6px 14px 6px #dbdcee94;
 }
@@ -109,6 +110,12 @@ body {
 .gridItemContent {
   flex-grow: 1;
   padding: 0.5rem 1rem 2rem 1rem;
+  display: flex;
+}
+
+.gridItemContent div:first-child {
+  /* flex-grow: 1; */
+  width: 100%;
 }
 
 .dateContainer {
@@ -116,6 +123,10 @@ body {
   display: flex;
   justify-content: end;
   align-items: flex-end;
+}
+
+.span-6 {
+  grid-column: span 6;
 }
 
 .profile {
@@ -228,7 +239,8 @@ body {
   position: relative;
 }
 
-.selectInput {
+.selectInput,
+.toggleCalendar {
   font-family: "Roboto Mono", monospace;
   background-color: #f3f3fb;
   border: none;
@@ -273,7 +285,8 @@ body {
   outline-color: #15111f;
 }
 
-.selectInput:hover {
+.selectInput:hover,
+.toggleCalendar:hover {
   background-color: #ececf9;
 }
 
@@ -290,24 +303,44 @@ body {
   color: #f3f3fb;
 }
 
+.calendarContainer {
+  position: relative;
+}
+
+.toggleCalendar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.toggleCalendar svg {
+  margin-right: 0.75em;
+}
+
 .calendar {
-  grid-column: span 3;
-  background-color: #fff;
-  width: 100%;
+  position: absolute;
+  right: 0;
+  bottom: -10px;
+  transform: translateY(100%);
+  background-color: #f3f3fb;
+  /* width: 100%;
   min-height: 300px;
-  max-width: 700px;
+  max-width: 500px; */
+  width: 500px;
   padding: 0.5rem;
   border-radius: 10px;
   border: none;
   font-family: "Poppins", sans-serif;
   text-align: center;
+  box-shadow: -5px 5px 10px 3px rgba(165, 165, 165, 0.1);
+  z-index: 10000;
 }
 
 .calendar abbr[title] {
   text-decoration: none;
 }
 
-.weekend {
+.weekend:not([disabled]):not(.selectedDate) {
   color: rgb(255, 99, 132);
 }
 
@@ -325,6 +358,39 @@ body {
 .tile,
 .react-calendar__navigation__arrow {
   padding: 1em;
+}
+
+.tile {
+  position: relative;
+}
+
+.tile:disabled::after {
+  position: absolute;
+  visibility: hidden;
+  display: block;
+  background-color: #15111f;
+  padding: 0.2em 0.7em;
+  border-radius: 10px;
+  color: #f3f3fb;
+  content: "No data";
+  z-index: 2000000;
+  white-space: nowrap;
+  transition: none;
+  bottom: 0.8em;
+  left: 50%;
+  transform: translate(-100%, 100%);
+  opacity: 0;
+}
+
+.tile:disabled:hover {
+  overflow: unset !important;
+}
+
+.tile:disabled:hover::after {
+  opacity: 1;
+  visibility: visible;
+  transition: 150ms ease-in-out;
+  transition-delay: 2s;
 }
 
 .tile:hover,
@@ -358,6 +424,12 @@ body {
 .calendarArrowIcon {
   width: 2rem;
   height: auto;
+}
+
+.selectedDate,
+.selectedDate:hover {
+  background-color: #8864ff;
+  color: #f3f3fb;
 }
 
 /* .react-calendar__navigation button {

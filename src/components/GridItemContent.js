@@ -1,9 +1,7 @@
-import React from 'react'
+import React, { useEffect } from "react";
 
-const GridItemContent = ({children}) => {
-  return (
-    <div className="gridItemContent">{children}</div>
-  )
-}
+const GridItemContent = ({ children }) => {
+  return <div className="gridItemContent">{children}</div>;
+};
 
-export default GridItemContent
+export default GridItemContent;
