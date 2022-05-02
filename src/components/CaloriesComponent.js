@@ -10,7 +10,6 @@ const CaloriesComponent = ({ base_url }) => {
   const baseProps = { base_title, base_url, base_value, base_icon };
 
   const handleData = (data) => {
-    console.log(data);
     const dataset = getDataset(data, "activities-calories");
     const value = dataset((array) => {
       return array.reduce((sum, curr) => sum + Number(curr.value), 0);
