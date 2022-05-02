@@ -11,7 +11,7 @@ const useFetch = (
   }
 ) => {
   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [apiUrl, setApiUrl] = useState(url);
 
@@ -28,13 +28,15 @@ const useFetch = (
       })
       .then((response) => {
         setData(response);
+        setLoading(false);
       })
       .catch((error) => {
         setError(error);
       })
-      .finally(() => setLoading(false));
+      .finally();
 
     return () => {
+      setLoading(true);
       controller.abort();
     };
   }, [apiUrl]);
