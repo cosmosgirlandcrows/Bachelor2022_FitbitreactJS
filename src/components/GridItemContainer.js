@@ -1,4 +1,10 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, {
+  useEffect,
+  useState,
+  useContext,
+  Children,
+  useRef,
+} from "react";
 import useFetch from "../hooks/useFetch";
 import {
   getDates,
@@ -13,8 +19,13 @@ import { AuthenticationContext } from "../contexts/AuthenticationContext";
 import Loader from "./Loader";
 import LineChart from "./LineChart";
 
-const GridItemContainer = ({ baseProps, handleData, handleChartData }) => {
-  const { base_title, base_url, base_value, base_icon } = baseProps;
+const GridItemContainer = ({
+  baseProps,
+  handleData,
+  handleChartData,
+  children,
+}) => {
+  const { base_title, base_url, base_value, base_icon, classes } = baseProps;
   const { access_token } = useContext(AuthenticationContext);
 
   //API state
@@ -47,7 +58,7 @@ const GridItemContainer = ({ baseProps, handleData, handleChartData }) => {
   };
 
   return (
-    <div className="gridItem">
+    <div className={"gridItem" + " " + classes}>
       <GridItemHeader
         titletext={title}
         value={loading ? <Loader text="Loading..." /> : value}
@@ -57,6 +68,7 @@ const GridItemContainer = ({ baseProps, handleData, handleChartData }) => {
       </GridItemHeader>
       <GridItemContent>
         <LineChart labels={labels} chartData={dataset} />
+        {children}
       </GridItemContent>
     </div>
   );

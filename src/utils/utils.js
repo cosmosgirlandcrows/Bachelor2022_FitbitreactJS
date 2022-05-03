@@ -54,6 +54,7 @@ export const generateTitleText = (baseText, selectedDate) => {
   if (selectedDate === "1 month") return `${baseText} the last 30 days`;
   if (selectedDate === "3 months") return `${baseText} the last 3 months`;
   if (selectedDate === "1 year") return `${baseText} the last year`;
+  else return `${baseText} on ${selectedDate}`;
   return baseText;
 };
 

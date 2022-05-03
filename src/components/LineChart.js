@@ -1,3 +1,4 @@
+import React from "react";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -9,6 +10,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { useEffect, useRef } from "react";
 
 ChartJS.register(
   CategoryScale,
@@ -34,22 +36,26 @@ const LineChart = ({ options, labeltext, labels, chartData }) => {
     ],
   };
 
-  return (
-    <div>
-      <Line data={data} options={options} />
-    </div>
-  );
-};
-
-LineChart.defaultProps = {
-  options: {
+  const defaultOptions = {
     plugins: {
       legend: {
         display: false,
       },
     },
     responsive: true,
-  },
+    maintainAspectRatio: false,
+    ...options,
+  };
+
+  return (
+    <div>
+      <Line data={data} options={defaultOptions} />
+    </div>
+  );
+};
+
+LineChart.defaultProps = {
+  options: {},
 };
 
 export default LineChart;

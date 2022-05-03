@@ -18,8 +18,10 @@ const useFetch = (
   useEffect(() => {
     const controller = new AbortController();
 
-    setLoading(true);
-    setError(null);
+    if (apiUrl) {
+      setLoading(true);
+      setError(null);
+    }
 
     fetch(apiUrl, { ...headers, signal: controller.signal })
       .then((response) => {
@@ -28,14 +30,15 @@ const useFetch = (
       })
       .then((response) => {
         setData(response);
-        console.log(response);
+        setLoading(false);
       })
       .catch((error) => {
         setError(error);
       })
-      .finally(() => setLoading(false));
+      .finally();
 
     return () => {
+      setLoading(false);
       controller.abort();
     };
   }, [apiUrl]);

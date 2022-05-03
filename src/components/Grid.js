@@ -4,6 +4,7 @@ import HeartrateComponent from "./HeartrateComponent";
 import SleepComponent from "./SleepComponent";
 import StepsComponent from "./StepsComponent";
 import CaloriesComponent from "./CaloriesComponent";
+import HeartrateCalendarComponent from "./HeartrateCalendarComponent";
 
 const Grid = () => {
   const { userId, BASE_URL } = useContext(AuthenticationContext);
@@ -15,6 +16,7 @@ const Grid = () => {
 
   return (
     <div className="container">
+      <HeartrateCalendarComponent base_url={apiHeartrate} />
       <HeartrateComponent base_url={apiHeartrate} />
       <SleepComponent base_url={apiSleep} />
       <StepsComponent base_url={apiSteps} />
