@@ -13,24 +13,80 @@ body {
   padding-bottom: 10vh;
 }
 
+/* Header */
 .mainHeader {
-  min-height: 135px;
+  /* min-height: 135px; */
   margin: 0 auto;
   color: #15111f;
-  display: flex;
-  justify-content: space-between;
   align-items: center;
   max-width: 1800px;
   padding: 2rem 3rem;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  grid-template-rows: auto;
+  justify-content: end;
+  align-items: center;
 }
 
 .mainHeader h1 {
+  grid-column: 1;
 }
 
+.profile {
+  grid-column: 2;
+  display: flex;
+}
+
+.profile > div {
+  grid-column: 3;
+  grid-row: 1;
+  padding: 0 5rem 0 1.5em;
+}
+
+.deviceInfo {
+  display: flex;
+  align-items: center;
+  margin-top: 0.4em;
+}
+
+.deviceInfo svg {
+  margin-right: 0.7em;
+  width: 1.5em;
+  height: 1.5em;
+}
+
+.profile img {
+  margin-left: auto;
+  border-radius: 100%;
+  width: 70px;
+  box-shadow: 0px 0px 10px 10px #dbdcee33;
+}
+
+.btn {
+  grid-column: 3;
+  font-family: "Poppins", sans-serif;
+  background-color: #15111f;
+  color: #f3f3fb;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.6em 2em;
+  border: none;
+  border-radius: 4rem;
+  cursor: pointer;
+  /* box-shadow: 0px 0px 10px 10px #dbdcee33; */
+  transition: 0.4s;
+}
+
+.btn:hover {
+  /* color: #ffffff; */
+  /* background-color: #ececf9; */
+  background-color: #15111fc4;
+}
+
+/*Grid container*/
 .container {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  grid-auto-rows: 500px;
   grid-gap: 2.5rem;
   justify-content: start;
   align-content: flex-start;
@@ -39,10 +95,6 @@ body {
   margin: 2rem auto 0;
   padding: 0 3rem;
   padding-bottom: 6rem;
-}
-
-.container > * {
-  /* grid-column: span 3; */
 }
 
 .gridItem {
@@ -60,6 +112,10 @@ body {
   padding: 2rem 1.5rem 1rem 1.5rem;
   /* border-bottom: 2px solid #9190911f; */
   color: #15111f;
+}
+
+.gridHeaderWrapper {
+  display: flex;
 }
 
 .gridHeaderIcon {
@@ -84,7 +140,6 @@ body {
 
 .stepsIcon {
   fill: #007c77;
-  /* fill: #FF9933; */
 }
 
 .burnIcon {
@@ -105,17 +160,17 @@ body {
   font-size: 1.2rem;
   color: #909090;
   font-weight: 400;
+  white-space: nowrap;
 }
 
 .gridItemContent {
-  flex-grow: 1;
   padding: 0.5rem 1rem 2rem 1rem;
   display: flex;
 }
 
 .gridItemContent div:first-child {
-  /* flex-grow: 1; */
   width: 100%;
+  height: 400px;
 }
 
 .dateContainer {
@@ -127,58 +182,6 @@ body {
 
 .span-6 {
   grid-column: span 6;
-}
-
-.profile {
-  display: flex;
-  align-items: center;
-}
-
-.profile > div {
-  padding: 0 5rem 0 1.5rem;
-}
-
-.deviceInfo {
-  display: flex;
-  align-items: center;
-  margin-top: 0.4rem;
-  margin-right: 1rem;
-}
-
-.deviceInfo svg {
-  margin-right: 0.2rem;
-  width: 1.5em;
-  height: 1.5em;
-}
-
-.deviceInfo svg {
-  margin-right: 0.7rem;
-}
-
-.profile img {
-  border-radius: 100%;
-  width: 70px;
-  box-shadow: 0px 0px 10px 10px #dbdcee33;
-}
-
-.btn {
-  font-family: "Poppins", sans-serif;
-  background-color: rgba(255, 255, 255, 0.5);
-  color: #15111f;
-  font-size: 1rem;
-  font-weight: 600;
-  padding: 0.6em 2em;
-  border: none;
-  border-radius: 4rem;
-  cursor: pointer;
-  /* box-shadow: 0px 0px 10px 10px #dbdcee33; */
-  transition: 0.4s;
-}
-
-.btn:hover {
-  /* color: #ffffff; */
-  /* background-color: #ececf9; */
-  background-color: rgba(255, 255, 255, 0.9);
 }
 
 .loader {
@@ -247,7 +250,7 @@ body {
   border: none;
   width: 100%;
   border-radius: 10px;
-  padding: 0.5rem 1rem;
+  padding: 0.5em 1em;
   font-size: 1rem;
   color: #15111f;
   cursor: pointer;
@@ -334,6 +337,9 @@ body {
   text-align: center;
   box-shadow: -5px 5px 10px 3px rgba(165, 165, 165, 0.1);
   z-index: 10000;
+}
+
+.calendarWrapper {
 }
 
 .calendar abbr[title] {
@@ -448,32 +454,314 @@ body {
   padding-right: 2rem;
 }
 
-@media all and (max-width: 1100px) and (min-width: 500px) {
+.nowr {
+  white-space: nowrap;
+}
+
+@media all and (max-width: 1500px) {
   .container {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-auto-rows: minmax(300px, auto);
-    grid-gap: 2.5rem;
-    justify-content: start;
-    align-content: flex-start;
-    /* min-height: calc(100vh - 80px); */
-    max-width: 1920px;
-    margin: 2rem auto 0;
-    padding: 0 3rem;
+    padding: 0 1.5rem;
+    gap: 1.5rem;
   }
+  .mainHeader {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .gridItemHeader {
+    padding: 1.5rem 1rem 0.5rem 1rem;
+  }
+
   .gridItemHeader h1 {
-    display: flex;
-    font-size: 1.1rem;
+    font-size: 1.4rem;
   }
 
   .gridItemHeader h2 {
-    font-size: 0.8rem;
-    color: #909090;
-    font-weight: 400;
+    font-size: 1.1rem;
+  }
+
+  .gridHeaderIcon {
+    margin-right: 0.6rem;
+  }
+
+  .gridHeaderIcon svg {
+    height: 90%;
+  }
+}
+
+@media all and (max-width: 1400px) {
+  .container {
+    padding: 0 1.5rem;
+    gap: 1.5rem;
+  }
+  .mainHeader {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .gridHeaderIcon svg {
+    height: 80%;
+  }
+
+  .gridItem {
+    grid-column: span 6;
+  }
+}
+
+@media all and (max-width: 1200px) {
+  .mainHeader {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .profile > div {
+    padding-right: 1.5rem;
+    padding-left: 0.7rem;
+  }
+
+  .profile img {
+    width: 60px;
+  }
+
+  .profile h2 {
+    font-size: 1.2rem;
+  }
+
+  .deviceInfo {
+    font-size: 1rem;
+  }
+
+  .deviceInfo svg {
+    margin-right: 0.3em;
+    width: 1.3em;
+    height: 1.3em;
+  }
+
+  .btn {
+    font-size: 0.9rem;
   }
 
   .gridHeaderIcon svg {
     height: 80%;
     width: auto;
+  }
+
+  .selectInput,
+  .toggleCalendar {
+    padding: 0.5em 1em;
+    font-size: 0.9rem;
+  }
+
+  .calendar {
+    width: 400px;
+  }
+
+  .tile,
+  .react-calendar__navigation button {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .tile,
+  .react-calendar__navigation__arrow {
+    padding: 1em;
+  }
+
+  .react-calendar__navigation__label {
+    padding: 0;
+  }
+
+  .react-calendar__month-view__weekdays {
+    padding-top: 0.5rem;
+    padding-bottom: 0;
+  }
+}
+
+@media all and (max-width: 720px) {
+  .mainHeader {
+    padding-top: 1rem;
+  }
+
+  .mainHeader h1 {
+    font-size: 1.5em;
+  }
+
+  .container {
+    padding: 0 1rem;
+    gap: 1rem;
+  }
+
+  /* .profile {
+    padding-right: 0;
+  } */
+
+  .profile h1 {
+    padding: 0;
+  }
+
+  .profile h2 {
+    font-size: 1.1rem;
+  }
+
+  .profile h3 {
+    font-size: 0.9rem;
+  }
+
+  /* .profile div {
+    padding: 0;
+  } */
+
+  .profile img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .deviceInfo {
+    justify-content: flex-end;
+  }
+
+  .btn {
+    /* margin-top: 0.4rem; */
+    background-color: #15111f;
+    color: #f3f3fb;
+    /* padding: 0.4em 2em;
+    font-size: 0.7rem; */
+  }
+
+  .deviceInfo svg {
+  }
+
+  .gridItemHeader {
+    padding-bottom: 0;
+  }
+
+  .gridItemHeader h2 {
+    font-size: 1rem;
+  }
+
+  .gridItemHeader h1 {
+    font-size: 1.3rem;
+  }
+}
+
+@media all and (max-width: 650px) {
+  .mainHeader {
+    grid-template-columns: 1fr auto auto;
+    justify-items: start;
+  }
+
+  .profile {
+    margin-top: 1rem;
+    grid-column: 1 / 3;
+    grid-row: 2;
+  }
+
+  .btn {
+    justify-self: end;
+  }
+
+  .gridItemHeader {
+    flex-direction: column;
+  }
+
+  .gridHeaderWrapper {
+    padding-left: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .gridItemContent {
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+  }
+}
+
+@media all and (max-width: 500px) {
+  .gridItemHeader h2 {
+    font-size: 0.9rem;
+    white-space: pre-wrap;
+  }
+
+  .gridItemHeader h1 {
+    font-size: 1.2rem;
+  }
+
+  .selectInput,
+  .toggleCalendar {
+    font-size: 0.8rem;
+  }
+
+  .calendarContainer {
+    width: 100%;
+  }
+
+  .calendar {
+    width: 100%;
+    padding: 0;
+    /* left: 0;
+    right: 0; */
+  }
+
+  .tile,
+  .react-calendar__navigation button {
+    font-size: 0.93rem;
+    line-height: 1.5;
+  }
+
+  .react-calendar__navigation__arrow {
+    padding: 0.5em;
+  }
+
+  .react-calendar__navigation__label {
+    flex-grow: unset !important;
+    font-size: 1rem !important;
+  }
+}
+
+@media all and (max-width: 450px) {
+  .container {
+    padding: 0 0.5rem;
+  }
+
+  .gridHeaderWrapper {
+    flex-direction: column;
+    padding-left: 0;
+  }
+
+  .gridHeaderIcon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .gridHeaderIcon svg {
+    margin-right: auto;
+  }
+
+  .gridItemHeader {
+    padding-top: 1rem;
+  }
+}
+
+@media all and (max-width: 400px) {
+  .gridHeaderWrapper {
+    padding-left: 0;
+  }
+
+  .react-calendar__month-view__weekdays {
+    font-size: 0.9rem;
+  }
+
+  .tile {
+    font-size: 0.9rem;
+  }
+}
+
+@media all and (max-width: 375px) {
+  .react-calendar__month-view__weekdays {
+    font-size: 0.8rem;
+  }
+
+  .tile {
+    font-size: 0.8rem;
+    padding: 0.7em;
   }
 }

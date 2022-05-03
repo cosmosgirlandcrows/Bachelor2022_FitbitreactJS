@@ -1,4 +1,5 @@
 import moment from "moment";
+import parse from "html-react-parser";
 
 export const getDates = (selectedDate) => {
   const endDate = moment().format("yyyy-MM-DD");
@@ -50,12 +51,20 @@ export const getAverage = (data, roundToDecimal = false) => {
 
 //Generates header title based on text and date selection
 export const generateTitleText = (baseText, selectedDate) => {
-  if (selectedDate === "1 week") return `${baseText} the last 7 days`;
-  if (selectedDate === "1 month") return `${baseText} the last 30 days`;
-  if (selectedDate === "3 months") return `${baseText} the last 3 months`;
-  if (selectedDate === "1 year") return `${baseText} the last year`;
-  else return `${baseText} on ${selectedDate}`;
-  return baseText;
+  if (selectedDate === "1 week") {
+    return parse(`${baseText} the last <span class="nowr">7 days</span>`);
+  }
+  if (selectedDate === "1 month") {
+    return parse(`${baseText} the last <span class="nowr">30 days</span>`);
+  }
+  if (selectedDate === "3 months") {
+    return parse(`${baseText} the last <span class="nowr">3 months</span>`);
+  }
+  if (selectedDate === "1 year") {
+    return parse(`${baseText} the last year`);
+  } else {
+    return parse(`${baseText} on <span class="nowr">${selectedDate}</span>`);
+  }
 };
 
 export const formatDataset = (labels, data, callback) => {

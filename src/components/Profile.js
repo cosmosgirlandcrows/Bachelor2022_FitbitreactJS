@@ -26,19 +26,21 @@ const Profile = ({ access_token, apiProfile, apiDeviceInfo }) => {
 
   return (
     <>
-      {profileLoading && deviceLoading && (
-        <Loader text="Loading profile..." fontSize="1.2rem" />
-      )}
-      {profile && <img src={profile.user.avatar} alt="avatar" />}
-      <div>
-        {profile && <h2>{profile.user.fullName}</h2>}
-        <h3 className="deviceInfo">
-          {device && (device[0]?.deviceVersion &&
-            <>
-              <BsSmartwatch /> Fitbit {device[0].deviceVersion}
-            </>
-          )}
-        </h3>
+      <div className="profile">
+        {profileLoading && deviceLoading && (
+          <Loader text="Loading profile..." fontSize="1.2rem" />
+        )}
+        {profile && <img src={profile.user.avatar} alt="avatar" />}
+        <div>
+          {profile && <h2>{profile.user.displayName}</h2>}
+          <h3 className="deviceInfo">
+            {device && device[0]?.deviceVersion && (
+              <>
+                <BsSmartwatch /> Fitbit {device[0].deviceVersion}
+              </>
+            )}
+          </h3>
+        </div>
       </div>
     </>
   );
