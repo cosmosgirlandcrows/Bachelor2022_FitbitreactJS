@@ -163,7 +163,7 @@ body {
 
 .btn {
   font-family: "Poppins", sans-serif;
-  background-color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.5);
   color: #15111f;
   font-size: 1rem;
   font-weight: 600;
@@ -171,13 +171,14 @@ body {
   border: none;
   border-radius: 4rem;
   cursor: pointer;
-  box-shadow: 0px 0px 10px 10px #dbdcee33;
+  /* box-shadow: 0px 0px 10px 10px #dbdcee33; */
   transition: 0.4s;
 }
 
 .btn:hover {
-  color: #ffffff;
-  background-color: #15111f;
+  /* color: #ffffff; */
+  /* background-color: #ececf9; */
+  background-color: rgba(255, 255, 255, 0.9);
 }
 
 .loader {
@@ -299,8 +300,7 @@ body {
 }
 
 .dropdown li:hover {
-  background-color: #15111f;
-  color: #f3f3fb;
+  background-color: #ececf9;
 }
 
 .calendarContainer {
