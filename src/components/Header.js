@@ -29,7 +29,7 @@ const Header = () => {
 
   return (
     <header className="mainHeader">
-      <h1>Fitbit API</h1>
+      <h1>DIGI-EL Dashboard</h1>
       <Profile
         access_token={access_token}
         apiProfile={apiProfile}
