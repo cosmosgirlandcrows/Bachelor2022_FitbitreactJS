@@ -28,28 +28,30 @@ const DateSelector = ({ values, handleOnChange }) => {
 
   return (
     <div className="select">
-      <input
-        type="text"
-        readOnly
-        value={selected}
-        className="selectInput"
-        onClick={toggleDropdown}
-        onBlur={handleBlur}
-      />
-      <MdKeyboardArrowDown className="arrow" />
-      {isToggled && (
-        <ul
-          className="dropdown"
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        >
-          {values.map((value, index) => (
-            <li key={index} onClick={() => handleClick(index)}>
-              {value}
-            </li>
-          ))}
-        </ul>
-      )}
+      <div className="inputWrapper">
+        <input
+          type="text"
+          readOnly
+          value={selected}
+          className="selectInput"
+          onClick={toggleDropdown}
+          onBlur={handleBlur}
+        />
+        <MdKeyboardArrowDown className="arrow" />
+        {isToggled && (
+          <ul
+            className="dropdown"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            {values.map((value, index) => (
+              <li key={index} onClick={() => handleClick(index)}>
+                {value}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   );
 };
