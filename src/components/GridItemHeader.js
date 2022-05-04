@@ -3,11 +3,14 @@ import PropTypes from "prop-types";
 const GridItemHeader = ({ titletext, value, icon, children }) => {
   return (
     <div className="gridItemHeader">
-      <div className="gridHeaderIcon">{icon}</div>
-      <div>
-        <h1>{value}</h1>
-        <h2>{titletext}</h2>
+      <div className="gridHeaderWrapper">
+        <div className="gridHeaderIcon">{icon}</div>
+        <div>
+          <h1>{value}</h1>
+          <h2>{titletext}</h2>
+        </div>
       </div>
+
       <div className="dateContainer">{children}</div>
     </div>
   );

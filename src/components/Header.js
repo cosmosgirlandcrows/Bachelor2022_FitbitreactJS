@@ -30,14 +30,12 @@ const Header = () => {
   return (
     <header className="mainHeader">
       <h1>Fitbit API</h1>
-      <div className="profile">
-        <Profile
-          access_token={access_token}
-          apiProfile={apiProfile}
-          apiDeviceInfo={apiDeviceInfo}
-        />
-        <Button onClick={() => logout()} title="Logout" />
-      </div>
+      <Profile
+        access_token={access_token}
+        apiProfile={apiProfile}
+        apiDeviceInfo={apiDeviceInfo}
+      />
+      <Button onClick={() => logout()} title="Logout" />
     </header>
   );
 };

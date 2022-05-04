@@ -60,24 +60,26 @@ const CalendarToggle = ({ dates, onCalandarDateChange }) => {
         </button>
 
         {isToggled && (
-          <Calendar
-            className="calendar"
-            tileClassName={tileClassName}
-            nextLabel={<MdKeyboardArrowRight className="calendarArrowIcon" />}
-            next2Label={null}
-            prevLabel={<MdKeyboardArrowLeft className="calendarArrowIcon" />}
-            prev2Label={null}
-            showNeighboringMonth={false}
-            minDetail="year"
-            minDate={minDate()}
-            maxDate={new Date()}
-            tileDisabled={setDisabled}
-            onClickDay={(value, event) => {
-              setDateValue(value);
-              setIsToggled(!isToggled);
-            }}
-            defaultActiveStartDate={dateValue}
-          />
+          <div className="calendarWrapper">
+            <Calendar
+              className="calendar"
+              tileClassName={tileClassName}
+              nextLabel={<MdKeyboardArrowRight className="calendarArrowIcon" />}
+              next2Label={null}
+              prevLabel={<MdKeyboardArrowLeft className="calendarArrowIcon" />}
+              prev2Label={null}
+              showNeighboringMonth={false}
+              minDetail="year"
+              minDate={minDate()}
+              maxDate={new Date()}
+              tileDisabled={setDisabled}
+              onClickDay={(value, event) => {
+                setDateValue(value);
+                setIsToggled(!isToggled);
+              }}
+              defaultActiveStartDate={dateValue}
+            />
+          </div>
         )}
       </OutsideClickHandler>
     </div>
