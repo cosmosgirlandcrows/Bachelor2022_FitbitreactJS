@@ -23,7 +23,7 @@ const Header = () => {
     })
       .then((response) => response.json())
       .then((response) => {
-        window.location.href = "http://localhost:3000/";
+        window.location.href = "https://fitbit-bach2022.herokuapp.com";
       });
   };
 
