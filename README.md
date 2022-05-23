@@ -8,5 +8,5 @@ Members:
 
 Nojus Budreika - s344224,
 Rosa Berg - s344236,
-Mohamed X. - ,
+Mohamed Abdullahi Abdi - s344062,
 Hassan Sheikh - s148134
