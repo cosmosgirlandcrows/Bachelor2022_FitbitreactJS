@@ -5,7 +5,7 @@
 npm install
 npm start
 ```
-## Members:
+### Members:
 * Nojus Budreika - s344224
 * Rosa Berg - s344236
 * Mohamed Abdullahi Abdi - s344062
