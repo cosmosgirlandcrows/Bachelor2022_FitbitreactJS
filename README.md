@@ -1,10 +1,8 @@
--- Bachelor project 2022 --
-
+# Bachelor project 2022 
 
 To run the application, perform the following commands to download the dependencies:
 ```
-npm install
-
+npm install <br>
 npm start
 ```
 Members:
