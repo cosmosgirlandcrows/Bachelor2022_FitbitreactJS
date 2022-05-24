@@ -2,11 +2,11 @@
 
 
 To run the application, perform the following commands to download the dependencies:
-
+```
 npm install
 
 npm start
-
+```
 Members:
 
 Nojus Budreika - s344224
